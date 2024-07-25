@@ -3,10 +3,10 @@
 import { Editor } from '@/components/editor/Editor'
 import Header from '@/components/Header'
 import {
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton
+    SignInButton,
+    SignedIn,
+    SignedOut,
+    UserButton
 } from '@clerk/nextjs';
 import { ClientSideSuspense, RoomProvider } from '@liveblocks/react/suspense';
 
@@ -20,12 +20,12 @@ const CollaborativeRoom = () => {
                             <p className='document-title'>Share</p>
                         </div>
 
-                        <SignedOut>
-                            <SignInButton />
-                        </SignedOut>
                         <SignedIn>
                             <UserButton />
                         </SignedIn>
+                        <SignedOut>
+                            <SignInButton />
+                        </SignedOut>
                     </Header>
 
                     <Editor />

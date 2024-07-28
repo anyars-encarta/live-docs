@@ -10,7 +10,7 @@ export const createDocument = async ({ userId, email }: CreateDocumentParams) =>
 
     try {
         const metadata = {
-            creatroId: userId,
+            creatorId: userId,
             email,
             title: 'Untitled'
         }
@@ -22,7 +22,7 @@ export const createDocument = async ({ userId, email }: CreateDocumentParams) =>
         const room = await liveblocks.createRoom(roomId, {
             metadata,
             usersAccesses,
-            defaultAccesses: ['room:write']
+            defaultAccesses: []
         });
 
         revalidatePath('/');

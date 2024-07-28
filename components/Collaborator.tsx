@@ -7,7 +7,13 @@ const Collaborator = ({ collaborator, roomId, email, creatorId, user }: Collabor
     const [userType, setUserType] = useState(collaborator.userType || 'viewer');
     const [loading, setLoading] = useState(false);
 
-    const shareDocumentHandler = async (type: string) => { };
+    const shareDocumentHandler = async (type: string) => { 
+        try {
+            
+        } catch (e) {
+            console.log(`There was an error sharing the documnent ${e}`)
+        }
+    };
 
     const removeCollaboratorHandler = async (email: string) => { };
 

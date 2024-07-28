@@ -2,20 +2,32 @@ import Image from 'next/image';
 import React, { useState } from 'react'
 import UserTypeSelector from './UserTypeSelector';
 import { Button } from './ui/button';
+import { removeCollaborator, updateDocumentAccess } from '@/lib/actions/room.actions';
 
 const Collaborator = ({ collaborator, roomId, email, creatorId, user }: CollaboratorProps) => {
     const [userType, setUserType] = useState(collaborator.userType || 'viewer');
     const [loading, setLoading] = useState(false);
 
-    const shareDocumentHandler = async (type: string) => { 
-        try {
-            
-        } catch (e) {
-            console.log(`There was an error sharing the documnent ${e}`)
-        }
+    const shareDocumentHandler = async (type: string) => {
+        setLoading(true);
+
+        await updateDocumentAccess({
+            roomId, 
+            email, 
+            userType: type as UserType, 
+            updatedBy: user
+        })
+
+        setLoading(false);
     };
 
-    const removeCollaboratorHandler = async (email: string) => { };
+    const removeCollaboratorHandler = async (email: string) => {
+        setLoading(true);
+
+        await removeCollaborator({roomId, email});
+        
+        setLoading(false);
+    };
 
     return (
         <li className='flex items-center justify-between gap-2 py-3'>
@@ -44,12 +56,12 @@ const Collaborator = ({ collaborator, roomId, email, creatorId, user }: Collabor
 
             {creatorId === collaborator.id ? (
                 <p className='text-sm tet-blue-100'>Owner</p>
-            ):(
+            ) : (
                 <div className='flex items-center'>
-                    <UserTypeSelector 
-                    userType={userType as UserType}
-                    setUserType={setUserType || 'viewer'}
-                    onClickHandler={shareDocumentHandler}
+                    <UserTypeSelector
+                        userType={userType as UserType}
+                        setUserType={setUserType || 'viewer'}
+                        onClickHandler={shareDocumentHandler}
                     />
 
                     <Button type='button' onClick={() => removeCollaboratorHandler(collaborator.email)}>

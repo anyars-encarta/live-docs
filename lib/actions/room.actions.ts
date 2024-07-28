@@ -82,7 +82,7 @@ export const updateDocumentAccess = async ({ roomId, email, userType, updatedBy 
             [email]: getAccessType(userType) as AccessType,
         }
 
-        const room = await liveblocks.updateRoom(roomId, { 
+        const room = await liveblocks.updateRoom(roomId, {
             usersAccesses
         })
 
@@ -94,5 +94,27 @@ export const updateDocumentAccess = async ({ roomId, email, userType, updatedBy 
         return parseStringify(room);
     } catch (e) {
         console.log(`Error happened while updating a room access: ${e}`)
+    }
+}
+
+export const removeCollaborator = async ({ roomId, email }: { roomId: string, email: string }) => {
+    try {
+        const room = await liveblocks.getRoom(roomId);
+
+        if (room.metadata.email === email) {
+            throw new Error('You cannot remove yourself from the document');
+        }
+
+        const updatedRoom = await liveblocks.updateRoom(roomId, {
+            usersAccesses: {
+                [email]: null
+            }
+        })
+
+        revalidatePath(`/documents/${roomId}`)
+
+        return parseStringify(updatedRoom);
+    } catch (e) {
+        console.log(`Error happened while removing a collaborator: ${e}`)
     }
 }

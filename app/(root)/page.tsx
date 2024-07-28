@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation';
 import { getDocuments } from '@/lib/actions/room.actions';
 import Link from 'next/link';
 import { dateConverter } from '@/lib/utils';
+import DeleteModal from '@/components/DeleteModal';
 
 const Home = async () => {
   const clerkUser = await currentUser();
@@ -16,7 +17,7 @@ const Home = async () => {
   const roomDocuments = await getDocuments(clerkUser.emailAddresses[0].emailAddress);
 
   const data = roomDocuments.data
-  console.log(data)
+
   return (
     <main className='home-container'>
       <Header className='sticky left-0 top-0'>
@@ -58,7 +59,8 @@ const Home = async () => {
                     <p className='text-sm font-light font-blue-100'>Created about {dateConverter(createdAt)}</p>
                   </div>
                 </Link>
-                {/* TODO: Add a delete button */}
+                
+                <DeleteModal roomId={id}/>
               </li>
             ))}
           </ul>

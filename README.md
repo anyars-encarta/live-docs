@@ -81,7 +81,7 @@
 
 LIVE DEMO
 
-> View the [live](live-docs-encarta.vercel.app) page of the project here.
+> View the [live](https://live-docs-encarta.vercel.app) page of the project here.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

@@ -46,7 +46,7 @@
 2. NextJS
 3. Shadcn / Radix UI
 4. Tailwind CSS
-5. clerk
+5. Clerk
 6. Sentry
 7. Liveblocks
 
